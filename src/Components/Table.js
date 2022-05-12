@@ -1,4 +1,6 @@
 import React , { useState , useEffect} from 'react';
+import SearchBar from './searchButton';
+import Box from '@mui/material/Box';
 import {getCountryFullInfo , allCountries , euCountries ,  euCandidateCountries} from '../API/index'
 import { DataGrid } from '@mui/x-data-grid'
 
@@ -33,7 +35,7 @@ const columns = [
 
 export default function StickyHeadTable() {
   const [countriesData , setCountriesData] = useState([])
-   
+  const [seachQuery , setSearchQuery] = useState('')
    const rows = countriesData?.map(country => {
      return { 
        id :  country.countryName,
@@ -53,24 +55,30 @@ const getTableData = async() => {
     const populationTotal = numberPopulation?.countryData?.population * 1000
     return acc + populationTotal
   } , 0)
-
+  const filterRows = rows?.filter(name => name?.countryName.toLowerCase().includes(seachQuery.toLowerCase()))
   useEffect(() => {
     getTableData()
   },[])
 
-
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <>
+     <Box sx={{paddingTop:5, width:'90%', margin:'auto'}}>
+      <SearchBar onChange={(e) =>setSearchQuery(e.target.value)}/>
+    </Box>
+    <div style={{ height: 400, width: '90%', margin:'auto' }}>
       <div>
         <p>{`EU countries: ${euCountries.toString()}`} </p>
         <p>{`Candidate countries: ${euCandidateCountries.toString()}`} </p>
         <p>{`Total population EU countries combined : ${euCombinedPopulations.toLocaleString('en-US')}`} </p>
       </div>
       <DataGrid
-        rows={rows}
+        rows={filterRows}
         columns={columns}
         pageSize={5}
+        sx={{textAlign:'center'}}
+       
       />
     </div>
+    </>
   );
 }

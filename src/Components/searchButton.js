@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search'
 import {TextField} from '@mui/material'
 
-export default function SearchBar() {
+export default function SearchBar({onChange}) {
   return (
     <TextField
       sx={(theme) => ({
@@ -11,7 +11,8 @@ export default function SearchBar() {
       })}
       size="small"
       type="search"
-      placeholder="Search..."
+      placeholder="Search by name"
+      onChange={onChange}
       InputProps={{
         startAdornment: <SearchIcon />,
       }}
