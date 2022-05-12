@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import StickyHeadTable from './Components/Table'
+import SearchBar from './Components/searchButton'
+import Box from '@mui/material/Box'
+import {getCountryFullInfo , allCountries} from './API/index'
+import { useEffect, useState } from 'react';
 
-function App() {
+
+function App() {  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Box sx={{paddingTop:5, width:'90%', margin:'auto'}}>
+      <SearchBar/>
+    </Box>
+    <StickyHeadTable/>
+    </>
   );
 }
 
