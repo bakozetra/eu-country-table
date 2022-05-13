@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search'
 import {TextField} from '@mui/material'
 
-export default function SearchBar({onChange}) {
+export default function SearchButton({onChange}) {
   return (
     <TextField
       sx={(theme) => ({

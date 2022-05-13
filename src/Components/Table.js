@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from './searchButton';
+import SearchBar from './SearchButton';
 import Box from '@mui/material/Box';
 import { getCountryFullInfo, allCountries, euCountries, euCandidateCountries } from '../API/index'
 import { DataGrid } from '@mui/x-data-grid'
