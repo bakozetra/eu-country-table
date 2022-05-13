@@ -56,12 +56,8 @@ export const euCountries = [
   ];
   //code to get info about countries and capitals in one function call
 export const allCountries = euCountries.concat(euCandidateCountries);
-      console.log("allCountries::::::", allCountries);
-
 
 export  async function getCountryFullInfo (countriesArr) {
-
-    console.log('countriesArr::::::',countriesArr);
     const fetchAllCountries = countriesArr.map(async (country) => {
         const countryData = await getCountry(country);
         const capital = countryData[0].capital;
@@ -73,6 +69,5 @@ export  async function getCountryFullInfo (countriesArr) {
         };
       });
     const allData = await Promise.all(fetchAllCountries);
-    console.log("allData::::::", allData);
     return allData
 }
