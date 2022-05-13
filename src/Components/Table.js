@@ -8,6 +8,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const columnsCountries = [
   {
@@ -93,6 +94,7 @@ export default function StickyHeadTable() {
   const [showCountry, setShowCountry] = useState(true)
   const [open, setOpen] = React.useState(false);
   const [editPopulationRecord, setEditPopulationRecord] = useState({})
+  const [loading, setLoading] = useState(false)
   const rows = countriesData?.map(country => {
     const capitalPopulation = country.capitalData.population * 100;
     const countryPopulation = country.countryData.population * 1000
@@ -109,8 +111,10 @@ export default function StickyHeadTable() {
   })
 
   const getTableData = async () => {
+    setLoading(true)
     const data = await getCountryFullInfo(allCountries)
     setCountriesData(data)
+    setLoading(false)
   }
   const euCombinedPopulations = countriesData?.filter(country => {
     return euCountries.includes(country?.countryName)
@@ -167,6 +171,12 @@ export default function StickyHeadTable() {
     setCountriesData(dataAfterUpdate)
     setOpen(false)
   }
+  // if(loading) {
+  //   return (
+  //     <CircularProgress color="success" />
+  //   )
+  // }
+
   return (
     <>
       <Box sx={{ paddingTop: 5, width: '90%', margin: 'auto' }}>
@@ -201,13 +211,19 @@ export default function StickyHeadTable() {
         </FormGroup>
       </div>
       <div style={{ height: 400, width: '90%', margin: 'auto' }}>
-        <DataGrid
-          rows={filterRows}
-          columns={showColums()}
-          pageSize={5}
-          showCellRightBorder={true}
-          sx={{ textAlign: 'center' }}
-        />
+        {loading ? <Box sx={{
+          display: 'flex',
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 30
+        }}><CircularProgress size={120} color="success" /></Box> :
+          <DataGrid
+            rows={filterRows}
+            columns={showColums()}
+            pageSize={5}
+            showCellRightBorder={true}
+            sx={{ textAlign: 'center' }}
+          />}
       </div>
       <Modal
         open={open}
